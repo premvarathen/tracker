@@ -8,7 +8,7 @@ public interface CustomerService {
 	void insert(Customer cus);
 	void insertBatch(List<Customer> customers);
 	void loadAllCustomer();
-	void getCustomerById(long cust_id);
-	void getCustomerNameById(long cust_id);
-	void getTotalNumerCustomer();
+	Customer getCustomerById(long CUSTID);
+	void getCustomerNameById(long CUSTID);
+	Integer getTotalNumerCustomer();
 }

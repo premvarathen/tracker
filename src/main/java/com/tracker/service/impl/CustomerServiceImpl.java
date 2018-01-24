@@ -33,21 +33,23 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
-	public void getCustomerById(long cust_id) {
-		Customer cust = customerDao.findCustomerById(cust_id);
+	public Customer getCustomerById(long CUSTID) {
+		Customer cust = customerDao.findCustomerById(CUSTID);
 		System.out.println(cust);
+		return cust;
 	}
 
 	@Override
-	public void getCustomerNameById(long cust_id) {
-		String name = customerDao.findNameById(cust_id);
+	public void getCustomerNameById(long CUSTID) {
+		String name = customerDao.findNameById(CUSTID);
 		System.out.println("Customer's name = " + name);
 	}
 
 	@Override
-	public void getTotalNumerCustomer() {
+	public Integer getTotalNumerCustomer() {
 		int totalNumberCustomer = customerDao.getTotalNumberCustomer();
 		System.out.println("Total Number Customer is: " + totalNumberCustomer);
+		return totalNumberCustomer;
 	}
 
 }

@@ -33,19 +33,19 @@ public class CustomerDaoImpl extends JdbcDaoSupport implements CustomerDao{
 	@Override
 	public void insert(Customer cus) {
 		String sql = "INSERT INTO customer " +
-				"(CUST_ID, NAME, AGE) VALUES (?, ?, ?)" ;
+				"(id, NAME, AGE) VALUES (?, ?, ?)" ;
 		getJdbcTemplate().update(sql, new Object[]{
-				cus.getCustId(), cus.getName(), cus.getAge()
+				cus.getId(), cus.getName(), cus.getAge()
 		});
 	}
 	
 	@Override
 	public void inserBatch(List<Customer> customers) {
-		String sql = "INSERT INTO customer " + "(CUST_ID, NAME, AGE) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO customer " + "(id, NAME, AGE) VALUES (?, ?, ?)";
 		getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
 				Customer customer = customers.get(i);
-				ps.setLong(1, customer.getCustId());
+				ps.setLong(1, customer.getId());
 				ps.setString(2, customer.getName());
 				ps.setInt(3, customer.getAge());
 			}
@@ -64,7 +64,7 @@ public class CustomerDaoImpl extends JdbcDaoSupport implements CustomerDao{
 		List<Customer> result = new ArrayList<Customer>();
 		for(Map<String, Object> row:rows){
 			Customer cus = new Customer();
-			cus.setCustId((Long)row.get("cust_id"));
+			cus.setId((Long)row.get("id"));
 			cus.setName((String)row.get("name"));
 			cus.setAge((Integer) row.get("age"));
 			result.add(cus);
@@ -74,13 +74,13 @@ public class CustomerDaoImpl extends JdbcDaoSupport implements CustomerDao{
 	}
 
 	@Override
-	public Customer findCustomerById(long cust_id) {
-		String sql = "SELECT * FROM customer WHERE CUST_ID = ?";
-		return (Customer)getJdbcTemplate().queryForObject(sql, new Object[]{cust_id}, new RowMapper<Customer>(){
+	public Customer findCustomerById(long id) {
+		String sql = "SELECT * FROM customer WHERE id = ?";
+		return (Customer)getJdbcTemplate().queryForObject(sql, new Object[]{id}, new RowMapper<Customer>(){
 			@Override
 			public Customer mapRow(ResultSet rs, int rwNumber) throws SQLException {
 				Customer cust = new Customer();
-				cust.setCustId(rs.getLong("cust_id"));
+				cust.setId(rs.getLong("id"));
 				cust.setName(rs.getString("name"));
 				cust.setAge(rs.getInt("age"));
 				return cust;
@@ -89,9 +89,9 @@ public class CustomerDaoImpl extends JdbcDaoSupport implements CustomerDao{
 	}
 
 	@Override
-	public String findNameById(long cust_id) {
-		String sql = "SELECT name FROM customer WHERE cust_id = ?";
-		return getJdbcTemplate().queryForObject(sql, new Object[]{cust_id}, String.class);
+	public String findNameById(long id) {
+		String sql = "SELECT name FROM customer WHERE id = ?";
+		return getJdbcTemplate().queryForObject(sql, new Object[]{id}, String.class);
 	}
 
 	@Override

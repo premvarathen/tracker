@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("com.tracker.*") 
+@ComponentScan(basePackages = {"com.tracker"})
 public class RestTrackerApplication {
 
 	public static void main(String[] args) {
